@@ -31,6 +31,22 @@ It's a simple BASH script which does the following actions:
 
 For now, Fedora 41 (current version) is the target of this project.
 
+## Make your own repository
+
+If you want, you can download or clone the repository and go to the [repo-builder](./repo-builder) folder. There you'll find `start-repo.sh` and `update-repo.sh`.
+
+### One-time actions (setup)
+
+1. Generate a new gpg key via `gpg --full-generate-key` and take note of its ID
+2. Copy `.env.example` into `.env`
+   - `REPO_GPG_KEY`: set it with the previously generated GPG key's ID
+   - `REPO_URL`: leave it to localhost:8080 if you want to make a local repository, otherwise change it accordingly. If using a reverse proxy (i.e. https://myrepo.mydomain.com), you should set it here.
+3. To keep the repository updated, use a scheduler like cronjob. An example of crontab is available [here](./repo-builder/crontab.example).
+
+### Start the repository
+
+`cd /path/to/cloned/git/repo/repo-builder && ./start-repo.sh [--port=8080]`
+
 ## Credits
 
 - [Natalie Somersall](https://github.com/some-natalie) (and relative contributors) for her incredible work creating and maintaining the [fedora-acs-override](https://github.com/some-natalie/fedora-acs-override) GitHub repository, from which I take her patch and from which I wrote the build steps.
