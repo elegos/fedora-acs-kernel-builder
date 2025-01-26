@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+f_version="$(rpm -E %fedora)"
 k_version="$1"
 patch_url="https://raw.githubusercontent.com/some-natalie/fedora-acs-override/refs/heads/main/acs/add-acs-override.patch"
 patch_filename="add-acs-override.patch"
@@ -8,8 +9,8 @@ patch_absolute_url="${HOME}/rpmbuild/SOURCES/${patch_filename}"
 set -e
 
 # Download kernel source and build the dependencies
-koji download-build --arch=src "kernel-${k_version}.fc41.src.rpm"
-rpm -Uvh "kernel-${k_version}.fc41.src.rpm"
+koji download-build --arch=src "kernel-${k_version}.fc${f_version}.src.rpm"
+rpm -Uvh "kernel-${k_version}.fc${f_version}.src.rpm"
 cd rpmbuild/SPECS/
 sudo dnf builddep -y kernel.spec
 

@@ -14,15 +14,15 @@ It's a simple BASH script which does the following actions:
 
 1. [latest_kernel.py](./latest_kernel.py): searches for the latest kernel available for the target Fedora version in bodhi
 2. [build.sh](./build.sh): builds a local docker image to build the kernel with
-3. [entrypoint.fc41.sh](./docker/entrypoint.fc41.sh): downloads the kernel sources
-4. [entrypoint.fc41.sh](./docker/entrypoint.fc41.sh): downloads and injects into the spec file the [some-natalie acs kernel patch](https://github.com/some-natalie/fedora-acs-override/blob/main/acs/add-acs-override.patch)
-5. [entrypoint.fc41.sh](./docker/entrypoint.fc41.sh): builds the kernel
+3. [entrypoint.sh](./docker/entrypoint.sh): downloads the kernel sources
+4. [entrypoint.sh](./docker/entrypoint.sh): downloads and injects into the spec file the [some-natalie acs kernel patch](https://github.com/some-natalie/fedora-acs-override/blob/main/acs/add-acs-override.patch)
+5. [entrypoint.sh](./docker/entrypoint.sh): builds the kernel
 6. If no error happens, the new rpm files will show up in output/(S)RPMS/
 
 ## How to run the script
 
 ```bash
-./build.sh
+./build.sh [--fedora-version=41]
 ```
 
 🙃

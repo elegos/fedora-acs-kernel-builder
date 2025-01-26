@@ -1,7 +1,8 @@
-FROM fedora:41
-
 ARG uid=1000
 ARG gid=1000
+ARG fedora_ver=41
+
+FROM fedora:${fedora_ver}
 
 RUN dnf update -y \
     && dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
@@ -15,7 +16,7 @@ USER builder
 
 RUN rpmdev-setuptree
 
-COPY --chown=builder:builder entrypoint.fc41.sh /home/builder/entrypoint.sh
+COPY --chown=builder:builder entrypoint.sh /home/builder/entrypoint.sh
 
 WORKDIR /home/builder
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
