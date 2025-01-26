@@ -3,6 +3,8 @@
 set -e
 
 fedora_ver=41
+num_cpu=$(grep -c processor /proc/cpuinfo)
+
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --fedora-version=*) 
@@ -12,6 +14,12 @@ while [[ "$#" -gt 0 ]]; do
                 exit 1
             fi
             ;;
+        --num-cpu=*)
+            num_cpu="${1#*=}"
+            if ! [[ "$num_cpu" =~ ^[0-9]+$ ]]; then
+                echo "Invalid number of CPU, must be numeric"
+                exit 1
+            fi
     esac
     shift
 done
@@ -36,5 +44,6 @@ mkdir -p output/SRPMS
 docker run --rm \
     --volume "$(pwd)/output/RPMS":/home/builder/rpmbuild/RPMS \
     --volume "$(pwd)/output/SRPMS":/home/builder/rpmbuild/SRPMS \
+    --cpus="${num_cpu}" \
     "fedora-acs-kernel-builder:fc${fedora_ver}" \
     "${latest_version}"

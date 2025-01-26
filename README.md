@@ -3,7 +3,7 @@
 The aim of this project is to produce automated rpm files for the latest available Fedora kernel
 
 ## Prerequisites
-- bash (tested on Linux, might work on Windows via cygwin, too)
+- bash on Linux (or having `/proc/cpuinfo` in any case)
 - Python 3 (any? 3.x version)
 - Docker
 - User allowed to execute docker without sudo
@@ -22,7 +22,7 @@ It's a simple BASH script which does the following actions:
 ## How to run the script
 
 ```bash
-./build.sh [--fedora-version=41]
+./build.sh [--fedora-version=41] [--num-cpu=$(grep -c processor /proc/cpuinfo)]
 ```
 
 🙃
