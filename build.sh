@@ -17,6 +17,11 @@ while [[ "$#" -gt 0 ]]; do
 done
 latest_version=$(python3 latest_kernel.py "${fedora_ver}")
 
+if [ -n "$(find output/RPMS -name "*${latest_version}*")" ]; then
+    echo "Kernel ${latest_version} already built."
+    exit 0
+fi
+
 pushd "docker" || (echo "Unable to push directory" && exit 1)
 docker build \
     -t "fedora-acs-kernel-builder:fc${fedora_ver}" \
