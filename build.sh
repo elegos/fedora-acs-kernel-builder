@@ -34,8 +34,8 @@ pushd "docker" || (echo "Unable to push directory" && exit 1)
 docker build \
     -t "fedora-acs-kernel-builder:fc${fedora_ver}" \
     --build-arg "fedora_ver=${fedora_ver}" \
-    --build-arg "uid=$(id -u)" \
-    --build-arg "gid=$(id -g)" \
+    --build-arg "build_uid=$(id -u)" \
+    --build-arg "build_gid=$(id -g)" \
     -f Dockerfile .
 popd
 
